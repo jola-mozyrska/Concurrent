@@ -19,6 +19,10 @@ public class PetriNet<T> {
         this.currentMarking = new ConcurrentHashMap<>(initial);
     }
 
+    public int getMarkingAt(T placeName) {
+        return currentMarking.get(placeName);
+    }
+
     public Set<Map<T, Integer>> reachable(Collection<Transition<T>> transitions) {
 
         Map<T, Integer> currentState = new HashMap(currentMarking);

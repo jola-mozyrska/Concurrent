@@ -1,12 +1,12 @@
 package alternator;
 
-import petrinet.*;
-
 import java.util.*;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.HashSet;
+
+import petrinet.*;
 
 public class Main {
     private static PetriNet<String> net;
