@@ -9,7 +9,8 @@ public class Transition<T> {
     Map<T, Integer> input, output;
     Collection<T> reset, inhibitor;
 
-    public Transition(Map<T, Integer> input, Collection<T> reset, Collection<T> inhibitor, Map<T, Integer> output) {
+    public Transition(Map<T, Integer> input, Collection<T> reset,
+                      Collection<T> inhibitor, Map<T, Integer> output) {
         this.input = new HashMap(input);
         this.output = new HashMap(output);
         this.reset = new HashSet<>(reset);

@@ -33,10 +33,8 @@ public class PetriNet<T> {
 
         Set<Map<T, Integer>> availableStates = new HashSet<>();
         Queue<Map<T, Integer>> queueOfStates = new LinkedList<>();
-        queueOfStates.add(new HashMap(currentMarking));
-        availableStates.add(new HashMap(currentMarking));
-
-        Iterator value = availableStates.iterator();
+        queueOfStates.add(currentState);
+        availableStates.add(currentState);
 
         //  getting next marking after firing transitions
         while (!queueOfStates.isEmpty()) {
@@ -53,7 +51,6 @@ public class PetriNet<T> {
             }
         }
 
-        value = availableStates.iterator();
         return availableStates;
     }
 
