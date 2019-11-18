@@ -10,6 +10,7 @@ public class PetriNet<T> {
     private boolean fair;
     private ConcurrentMap<T, Integer> currentMarking;
     private Semaphore globalMutex = new Semaphore(1);
+    ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
 
     //  structures helping with firing waiting not fired threads
     private LinkedList<Collection<petrinet.Transition<T>>> notFiredTransitions = new LinkedList<>();
@@ -26,8 +27,9 @@ public class PetriNet<T> {
     }
 
     public Set<Map<T, Integer>> reachable(Collection<Transition<T>> transitions) {
-
+        readWriteLock.writeLock().lock();
         Map<T, Integer> currentState = new HashMap(currentMarking);
+        readWriteLock.writeLock().unlock();
 
         Set<Map<T, Integer>> availableStates = new HashSet<>();
         Queue<Map<T, Integer>> queueOfStates = new LinkedList<>();

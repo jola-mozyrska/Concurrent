@@ -26,9 +26,11 @@ public class Main {
         public void run() {
             int counter = 0;
             while (true) {
-                if (Thread.interrupted()) {
+                if (Thread.currentThread().isInterrupted()) {
+                    Thread.currentThread.interrupt();
                     System.out.println("I am thread named " + this.name +
                             ", I fired " + counter + " transitions.");
+                    Thread
                     return;
                 }
                 try {
@@ -36,6 +38,7 @@ public class Main {
                     if (t != null)
                         ++counter;
                 } catch (InterruptedException e) {
+                    Thread.currentThread.interrupt();
                 }
             }
         }
@@ -125,7 +128,10 @@ public class Main {
         try {
             net.fire(endingSet);
         } catch (InterruptedException e) {
-
+            for (int i = 0; i < 4; ++i)
+                helpfulThreads.get(i).interrupt();
+            System.out.println("Ending fire interrupted.");
+            return;
         }
 
         for (int i = 0; i < 4; ++i)
