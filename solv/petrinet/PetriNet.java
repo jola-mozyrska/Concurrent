@@ -10,6 +10,8 @@ public class PetriNet<T> {
     private boolean fair;
     private ConcurrentMap<T, Integer> currentMarking;
     private Semaphore globalMutex = new Semaphore(1);
+
+    //  structures helping with firing waiting not fired threads
     private LinkedList<Collection<petrinet.Transition<T>>> notFiredTransitions = new LinkedList<>();
     private LinkedList<Semaphore> notFiredSemaphores = new LinkedList<>();
     private LinkedList<Thread> notFiredThreads = new LinkedList<>();
@@ -34,6 +36,7 @@ public class PetriNet<T> {
 
         Iterator value = availableStates.iterator();
 
+        //  getting next marking after firing transitions
         while (!queueOfStates.isEmpty()) {
             Map<T, Integer> state = queueOfStates.poll();
 
@@ -65,6 +68,7 @@ public class PetriNet<T> {
                 }
             }
 
+            //  there was no available transition to fire
             if (successfulTransition == null) {
                 notFiredTransitions.add(transitions);
                 Semaphore abilityToFireMutex = new Semaphore(0);

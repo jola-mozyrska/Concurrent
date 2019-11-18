@@ -129,7 +129,7 @@ public class Main {
         }
 
         if (counter != 0)
-            System.out.println("Itis not thread-safe!");
+            System.out.println("It is not thread-safe!");
 
         Thread A = new Thread(new petriRunnable("A"));
         A.setName("A");

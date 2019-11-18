@@ -26,17 +26,17 @@ public class Main {
         public void run() {
             int counter = 0;
             while (true) {
-                if(Thread.interrupted()) {
+                if (Thread.interrupted()) {
                     System.out.println("I am thread named " + this.name +
-                            ", I fired " + counter + "transitions.");
+                            ", I fired " + counter + " transitions.");
                     return;
                 }
                 try {
                     Transition<String> t = net.fire(transitions);
                     if (t != null)
                         ++counter;
+                } catch (InterruptedException e) {
                 }
-                catch(InterruptedException e) {}
             }
         }
     }
@@ -110,9 +110,10 @@ public class Main {
 
         Transition<String> endingTransition =
                 new Transition<String>(input, new ArrayList<>(), inhibitor, output);
+
         //  transitions created
 
-        List<Thread> helpfulThreads= new ArrayList<>();
+        List<Thread> helpfulThreads = new ArrayList<>();
         for (int i = 0; i < 4; ++i) {
             Thread t = new Thread(new petriRunnable("A" + i));
             t.start();
@@ -123,10 +124,11 @@ public class Main {
 
         try {
             net.fire(endingSet);
-        }
-        catch(InterruptedException e) {}
+        } catch (InterruptedException e) {
 
-        for(int i = 0; i < 4; ++i)
+        }
+
+        for (int i = 0; i < 4; ++i)
             helpfulThreads.get(i).interrupt();
 
         int result = net.getMarkingAt("A*B");
